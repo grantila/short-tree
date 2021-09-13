@@ -17,6 +17,11 @@ The `ShortTree< T >` class extends `RBTree< Array< T > >`.
 A new function is added `values()` which returns `Array< Array< T > >`, i.e. an array of all nodes (and again, each node is an array of `T`).
 
 
+## Versions
+
+ * Since v2 this is a [pure ESM][pure-esm] package, and requires Node.js >=12.20. It cannot be used from CommonJS.
+
+
 # Algorithm
 
 
@@ -36,13 +41,23 @@ Construct a `ShortTree` by giving the comparison function for `T`.
 If `T` is `number` e.g., this could be `(a, b) => a - b`.
 
 
+## Order
+
+The order when traversing the values is going to depend on the comparison function provided to the constructor.
+
+E.g. a traditional `(a: string, b: string) => a.localeCompare(b)` will ensure an order for your current locale. You can use `Intl` to define string comparison orders for other situations.
+
+If the *human friendly* order isn't that important, but speed is critical, use [`fast-string-compare`][fast-string-compare-npm-url].
+
+
 ## Example
 
 ```ts
+import { compare } from 'fast-string-compare'
 import { ShortTree } from 'short-tree'
 
 // T is deduced to {string}
-const tree = new ShortTree( ( a: string, b: string ) => a.localeCompare( b ) );
+const tree = new ShortTree( compare );
 
 tree.insert( [ 'a', 'b', 'c', 'd' ] );
 tree.insert( [ 'x', 'y' ] );
@@ -66,3 +81,5 @@ tree.values( ); // [ [ 'a', 'b' ], [ 'x', 'y' ] ]
 [node-url]: https://nodejs.org/en/
 
 [bintrees-npm-url]: https://npmjs.org/package/bintrees
+[fast-string-compare-npm-url]: https://npmjs.org/package/fast-string-compare
+[pure-esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
