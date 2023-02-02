@@ -19,6 +19,7 @@ A new function is added `values()` which returns `Array< Array< T > >`, i.e. an 
 ## Versions
 
  * Since v2 this is a [pure ESM][pure-esm] package, and requires Node.js >=12.20. It cannot be used from CommonJS.
+ * Since v3 requires Node.js >= 14.13.1.
 
 
 # Algorithm
